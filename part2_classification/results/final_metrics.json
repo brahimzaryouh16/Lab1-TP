@@ -1,0 +1,20 @@
+{
+  "train_balanced": {
+    "accuracy": 0.9946,
+    "sensitivity_recall_macro": 0.9946,
+    "sensitivity_recall_weighted": 0.9946,
+    "precision_macro": 0.9947,
+    "precision_weighted": 0.9947,
+    "f1_macro": 0.9946,
+    "f1_weighted": 0.9946
+  },
+  "test_original": {
+    "accuracy": 0.9565,
+    "sensitivity_recall_macro": 0.6255,
+    "sensitivity_recall_weighted": 0.9565,
+    "precision_macro": 0.5069,
+    "precision_weighted": 0.9766,
+    "f1_macro": 0.5515,
+    "f1_weighted": 0.9654
+  }
+}

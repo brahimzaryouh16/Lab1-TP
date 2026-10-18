@@ -1,0 +1,49 @@
+{
+  "best_params": {
+    "hidden": [
+      64,
+      32
+    ],
+    "lr": 0.01,
+    "optimizer": "adam"
+  },
+  "classes": [
+    "Heat Dissipation Failure",
+    "No Failure",
+    "Overstrain Failure",
+    "Power Failure",
+    "Random Failures",
+    "Tool Wear Failure"
+  ],
+  "feature_names": [
+    "Air temperature [K]",
+    "Process temperature [K]",
+    "Rotational speed [rpm]",
+    "Torque [Nm]",
+    "Tool wear [min]",
+    "Power [W]",
+    "Temp diff [K]",
+    "Type_H",
+    "Type_L",
+    "Type_M"
+  ],
+  "counts_before_smote": {
+    "Heat Dissipation Failure": 90,
+    "No Failure": 7722,
+    "Overstrain Failure": 62,
+    "Power Failure": 76,
+    "Random Failures": 14,
+    "Tool Wear Failure": 36
+  },
+  "counts_after_smote": {
+    "Heat Dissipation Failure": 7722,
+    "No Failure": 7722,
+    "Overstrain Failure": 7722,
+    "Power Failure": 7722,
+    "Random Failures": 7722,
+    "Tool Wear Failure": 7722
+  },
+  "n_train_original": 8000,
+  "n_test": 2000,
+  "n_train_balanced": 46332
+}

@@ -1,0 +1,28 @@
+=== TRAIN (equilibre) ===
+                          precision    recall  f1-score   support
+
+Heat Dissipation Failure      0.996     0.999     0.997      7722
+              No Failure      1.000     0.970     0.985      7722
+      Overstrain Failure      0.995     1.000     0.998      7722
+           Power Failure      0.996     1.000     0.998      7722
+         Random Failures      0.994     1.000     0.997      7722
+       Tool Wear Failure      0.987     0.999     0.993      7722
+
+                accuracy                          0.995     46332
+               macro avg      0.995     0.995     0.995     46332
+            weighted avg      0.995     0.995     0.995     46332
+
+
+=== TEST (distribution originale) ===
+                          precision    recall  f1-score   support
+
+Heat Dissipation Failure      0.564     1.000     0.721        22
+              No Failure      0.992     0.964     0.978      1930
+      Overstrain Failure      0.696     1.000     0.821        16
+           Power Failure      0.789     0.789     0.789        19
+         Random Failures      0.000     0.000     0.000         4
+       Tool Wear Failure      0.000     0.000     0.000         9
+
+                accuracy                          0.957      2000
+               macro avg      0.507     0.626     0.551      2000
+            weighted avg      0.977     0.957     0.965      2000

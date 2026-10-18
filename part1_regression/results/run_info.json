@@ -1,0 +1,54 @@
+{
+  "best_params": {
+    "epochs": 40,
+    "hidden": [
+      64,
+      32
+    ],
+    "lr": 0.01,
+    "optimizer": "adam",
+    "batch_size": 1024
+  },
+  "final_config": {
+    "epochs": 40,
+    "hidden": [
+      64,
+      32
+    ],
+    "lr": 0.01,
+    "optimizer": "adam",
+    "batch_size": 1024
+  },
+  "epochs_effectives_final": 40,
+  "n_train": 678834,
+  "n_test": 169925,
+  "features": [
+    "open_lag1",
+    "open_lag2",
+    "open_lag3",
+    "open_lag4",
+    "open_lag5",
+    "close_lag1",
+    "close_lag2",
+    "close_lag3",
+    "close_lag4",
+    "close_lag5",
+    "low_lag1",
+    "low_lag2",
+    "low_lag3",
+    "low_lag4",
+    "low_lag5",
+    "high_lag1",
+    "high_lag2",
+    "high_lag3",
+    "high_lag4",
+    "high_lag5",
+    "volume_lag1",
+    "volume_lag2",
+    "volume_lag3",
+    "volume_lag4",
+    "volume_lag5"
+  ],
+  "L": 5,
+  "split_date": "2015-08-27"
+}

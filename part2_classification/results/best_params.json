@@ -1,0 +1,8 @@
+{
+  "hidden": [
+    64,
+    32
+  ],
+  "lr": 0.01,
+  "optimizer": "adam"
+}

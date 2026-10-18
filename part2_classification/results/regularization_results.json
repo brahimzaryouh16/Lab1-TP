@@ -1,0 +1,238 @@
+{
+  "Baseline (SMOTE)": {
+    "config": {
+      "hidden": [
+        64,
+        32
+      ],
+      "lr": 0.01,
+      "optimizer": "adam",
+      "batch_size": 512
+    },
+    "train_balanced": {
+      "accuracy": 0.9946,
+      "sensitivity_recall_macro": 0.9946,
+      "sensitivity_recall_weighted": 0.9946,
+      "precision_macro": 0.9947,
+      "precision_weighted": 0.9947,
+      "f1_macro": 0.9946,
+      "f1_weighted": 0.9946
+    },
+    "test_original": {
+      "accuracy": 0.9565,
+      "sensitivity_recall_macro": 0.6255,
+      "sensitivity_recall_weighted": 0.9565,
+      "precision_macro": 0.5069,
+      "precision_weighted": 0.9766,
+      "f1_macro": 0.5515,
+      "f1_weighted": 0.9654
+    }
+  },
+  "+ Dropout 0.3": {
+    "config": {
+      "hidden": [
+        64,
+        32
+      ],
+      "lr": 0.01,
+      "optimizer": "adam",
+      "batch_size": 512,
+      "dropout": 0.3
+    },
+    "train_balanced": {
+      "accuracy": 0.9854,
+      "sensitivity_recall_macro": 0.9854,
+      "sensitivity_recall_weighted": 0.9854,
+      "precision_macro": 0.9858,
+      "precision_weighted": 0.9858,
+      "f1_macro": 0.9852,
+      "f1_weighted": 0.9852
+    },
+    "test_original": {
+      "accuracy": 0.9075,
+      "sensitivity_recall_macro": 0.6599,
+      "sensitivity_recall_weighted": 0.9075,
+      "precision_macro": 0.4203,
+      "precision_weighted": 0.9729,
+      "f1_macro": 0.4952,
+      "f1_weighted": 0.9361
+    }
+  },
+  "+ L2 (weight decay 1e-4)": {
+    "config": {
+      "hidden": [
+        64,
+        32
+      ],
+      "lr": 0.01,
+      "optimizer": "adam",
+      "batch_size": 512,
+      "weight_decay": 0.0001
+    },
+    "train_balanced": {
+      "accuracy": 0.994,
+      "sensitivity_recall_macro": 0.994,
+      "sensitivity_recall_weighted": 0.994,
+      "precision_macro": 0.9941,
+      "precision_weighted": 0.9941,
+      "f1_macro": 0.994,
+      "f1_weighted": 0.994
+    },
+    "test_original": {
+      "accuracy": 0.9545,
+      "sensitivity_recall_macro": 0.6177,
+      "sensitivity_recall_weighted": 0.9545,
+      "precision_macro": 0.5084,
+      "precision_weighted": 0.9762,
+      "f1_macro": 0.5531,
+      "f1_weighted": 0.9645
+    }
+  },
+  "+ Dropout + L2": {
+    "config": {
+      "hidden": [
+        64,
+        32
+      ],
+      "lr": 0.01,
+      "optimizer": "adam",
+      "batch_size": 512,
+      "dropout": 0.3,
+      "weight_decay": 0.0001
+    },
+    "train_balanced": {
+      "accuracy": 0.9855,
+      "sensitivity_recall_macro": 0.9855,
+      "sensitivity_recall_weighted": 0.9855,
+      "precision_macro": 0.9858,
+      "precision_weighted": 0.9858,
+      "f1_macro": 0.9852,
+      "f1_weighted": 0.9852
+    },
+    "test_original": {
+      "accuracy": 0.9095,
+      "sensitivity_recall_macro": 0.6706,
+      "sensitivity_recall_weighted": 0.9095,
+      "precision_macro": 0.4009,
+      "precision_weighted": 0.9722,
+      "f1_macro": 0.4799,
+      "f1_weighted": 0.9361
+    }
+  },
+  "+ Poids de classes": {
+    "config": {
+      "hidden": [
+        64,
+        32
+      ],
+      "lr": 0.01,
+      "optimizer": "adam",
+      "batch_size": 512
+    },
+    "train_balanced": {
+      "accuracy": 0.9946,
+      "sensitivity_recall_macro": 0.9946,
+      "sensitivity_recall_weighted": 0.9946,
+      "precision_macro": 0.9947,
+      "precision_weighted": 0.9947,
+      "f1_macro": 0.9946,
+      "f1_weighted": 0.9946
+    },
+    "test_original": {
+      "accuracy": 0.9565,
+      "sensitivity_recall_macro": 0.6255,
+      "sensitivity_recall_weighted": 0.9565,
+      "precision_macro": 0.5069,
+      "precision_weighted": 0.9766,
+      "f1_macro": 0.5515,
+      "f1_weighted": 0.9654
+    }
+  },
+  "+ Early stopping (p=6)": {
+    "config": {
+      "hidden": [
+        64,
+        32
+      ],
+      "lr": 0.01,
+      "optimizer": "adam",
+      "batch_size": 512
+    },
+    "train_balanced": {
+      "accuracy": 0.9892,
+      "sensitivity_recall_macro": 0.9892,
+      "sensitivity_recall_weighted": 0.9892,
+      "precision_macro": 0.9894,
+      "precision_weighted": 0.9894,
+      "f1_macro": 0.9891,
+      "f1_weighted": 0.9891
+    },
+    "test_original": {
+      "accuracy": 0.9315,
+      "sensitivity_recall_macro": 0.6224,
+      "sensitivity_recall_weighted": 0.9315,
+      "precision_macro": 0.4582,
+      "precision_weighted": 0.9744,
+      "f1_macro": 0.5186,
+      "f1_weighted": 0.951
+    }
+  },
+  "+ Label smoothing 0.05": {
+    "config": {
+      "hidden": [
+        64,
+        32
+      ],
+      "lr": 0.01,
+      "optimizer": "adam",
+      "batch_size": 512
+    },
+    "train_balanced": {
+      "accuracy": 0.9935,
+      "sensitivity_recall_macro": 0.9935,
+      "sensitivity_recall_weighted": 0.9935,
+      "precision_macro": 0.9935,
+      "precision_weighted": 0.9935,
+      "f1_macro": 0.9934,
+      "f1_weighted": 0.9934
+    },
+    "test_original": {
+      "accuracy": 0.9445,
+      "sensitivity_recall_macro": 0.6028,
+      "sensitivity_recall_weighted": 0.9445,
+      "precision_macro": 0.4652,
+      "precision_weighted": 0.9736,
+      "f1_macro": 0.5181,
+      "f1_weighted": 0.9577
+    }
+  },
+  "Sans augmentation": {
+    "config": {
+      "hidden": [
+        64,
+        32
+      ],
+      "lr": 0.01,
+      "optimizer": "adam",
+      "batch_size": 512
+    },
+    "train_balanced": {
+      "accuracy": 0.9871,
+      "sensitivity_recall_macro": 0.5931,
+      "sensitivity_recall_weighted": 0.9871,
+      "precision_macro": 0.7287,
+      "precision_weighted": 0.9839,
+      "f1_macro": 0.6164,
+      "f1_weighted": 0.9843
+    },
+    "test_original": {
+      "accuracy": 0.9805,
+      "sensitivity_recall_macro": 0.4784,
+      "sensitivity_recall_weighted": 0.9805,
+      "precision_macro": 0.5972,
+      "precision_weighted": 0.9733,
+      "f1_macro": 0.5256,
+      "f1_weighted": 0.9762
+    }
+  }
+}

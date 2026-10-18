@@ -1,0 +1,9 @@
+Variante,Epochs_effectives,Test_Accuracy,Test_F1_macro,Test_Recall_macro,Train_F1_macro,Gap_F1(train-test)
+Baseline (SMOTE),30,0.9565,0.5515,0.6255,0.9946,0.4431
+Sans augmentation,30,0.9805,0.5256,0.4784,0.6164,0.0908
++ Dropout 0.3,30,0.9075,0.4952,0.6599,0.9852,0.49
++ L2 (weight decay 1e-4),30,0.9545,0.5531,0.6177,0.994,0.4409
++ Dropout + L2,30,0.9095,0.4799,0.6706,0.9852,0.5053
++ Poids de classes,30,0.9565,0.5515,0.6255,0.9946,0.4431
++ Early stopping (p=6),11,0.9315,0.5186,0.6224,0.9891,0.4705
++ Label smoothing 0.05,30,0.9445,0.5181,0.6028,0.9934,0.4753

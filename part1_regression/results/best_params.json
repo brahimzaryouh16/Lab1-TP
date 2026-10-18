@@ -1,0 +1,10 @@
+{
+  "epochs": 40,
+  "hidden": [
+    64,
+    32
+  ],
+  "lr": 0.01,
+  "optimizer": "adam",
+  "batch_size": 1024
+}
