@@ -13,7 +13,12 @@ from sklearn.preprocessing import StandardScaler
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(HERE, "data")
 RESULTS = os.path.join(HERE, "results")
-os.makedirs(RESULTS, exist_ok=True)
+FIGURES = os.path.join(RESULTS, "figures")   # courbes et figures
+METRICS = os.path.join(RESULTS, "metrics")   # json, csv et rapports texte
+MODELS = os.path.join(RESULTS, "models")     # poids des modeles (.pt)
+os.makedirs(FIGURES, exist_ok=True)
+os.makedirs(METRICS, exist_ok=True)
+os.makedirs(MODELS, exist_ok=True)
 
 PRICES_URL = "https://raw.githubusercontent.com/kyi3081/stock-analysis/master/prices-split-adjusted.csv"
 SECURITIES_URL = "https://raw.githubusercontent.com/kyi3081/stock-analysis/master/securities.csv"
@@ -41,7 +46,7 @@ def load_data():
 
 def run_eda(prices, securities):
     # petit resume texte du dataset
-    with open(os.path.join(RESULTS, "eda_summary.txt"), "w") as f:
+    with open(os.path.join(METRICS, "eda_summary.txt"), "w") as f:
         f.write("Shape: %s\n" % str(prices.shape))
         f.write("Periode: %s -> %s\n" % (prices["date"].min().date(), prices["date"].max().date()))
         f.write("Nombre de symboles: %d\n" % prices["symbol"].nunique())
@@ -62,7 +67,7 @@ def run_eda(prices, securities):
     plt.ylabel("Prix ($)")
     plt.legend(ncol=3, fontsize=9)
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS, "p1_01_price_history.png"), dpi=110)
+    plt.savefig(os.path.join(FIGURES, "p1_01_price_history.png"), dpi=110)
     plt.close()
 
     # figure 2 : distribution du prix et du volume
@@ -76,7 +81,7 @@ def run_eda(prices, securities):
     plt.title("Distribution du volume (log1p)")
     plt.xlabel("log(1+volume)")
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS, "p1_02_distributions.png"), dpi=110)
+    plt.savefig(os.path.join(FIGURES, "p1_02_distributions.png"), dpi=110)
     plt.close()
 
     # figure 3 : matrice de correlation (1 ligne sur 10 pour aller plus vite)
@@ -87,7 +92,7 @@ def run_eda(prices, securities):
     sns.heatmap(sample.corr(), annot=True, fmt=".3f", cmap="coolwarm", vmin=-1, vmax=1)
     plt.title("Matrice de correlation (OHLC + log volume)")
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS, "p1_03_correlation.png"), dpi=110)
+    plt.savefig(os.path.join(FIGURES, "p1_03_correlation.png"), dpi=110)
     plt.close()
 
     # figure 4 : repartition des secteurs
@@ -99,7 +104,7 @@ def run_eda(prices, securities):
     plt.title("Nombre d'actions par secteur GICS")
     plt.xlabel("Nombre d'actions")
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS, "p1_04_sectors.png"), dpi=110)
+    plt.savefig(os.path.join(FIGURES, "p1_04_sectors.png"), dpi=110)
     plt.close()
 
 

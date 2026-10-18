@@ -14,7 +14,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import GridSearchCV, TimeSeriesSplit
 
-from data import download_data, load_data, run_eda, prepare_data, RESULTS
+from data import download_data, load_data, run_eda, prepare_data, RESULTS, FIGURES, METRICS, MODELS
 from model import TorchMLPRegressor, build_mlp, make_optimizer
 
 SEED = 42
@@ -172,8 +172,8 @@ cv_results = pd.DataFrame(grid.cv_results_)[
      "mean_test_score", "std_test_score", "rank_test_score", "mean_fit_time"]]
 cv_results["mean_test_score"] = -cv_results["mean_test_score"]
 cv_results = cv_results.sort_values("rank_test_score")
-cv_results.to_csv(os.path.join(RESULTS, "grid_results.csv"), index=False)
-with open(os.path.join(RESULTS, "best_params.json"), "w") as f:
+cv_results.to_csv(os.path.join(METRICS, "grid_results.csv"), index=False)
+with open(os.path.join(METRICS, "best_params.json"), "w") as f:
     json.dump(best_params, f, indent=2)
 
 # ---------------------------------------------------------------------------
@@ -189,7 +189,7 @@ test_pred = D["scaler_y"].inverse_transform(
     predict_batches(model, D["X_test"]).reshape(-1, 1)).ravel()
 metrics = {"train": full_metrics(D["y_train"], train_pred),
            "test": full_metrics(D["y_test"], test_pred)}
-with open(os.path.join(RESULTS, "final_metrics.json"), "w") as f:
+with open(os.path.join(METRICS, "final_metrics.json"), "w") as f:
     json.dump(metrics, f, indent=2)
 print("Metriques finales train:", metrics["train"])
 print("Metriques finales test :", metrics["test"])
@@ -203,7 +203,7 @@ plt.ylabel("MSE (y normalise)")
 plt.title("Loss / Epochs - modele final (regression NYSE)")
 plt.legend()
 plt.tight_layout()
-plt.savefig(os.path.join(RESULTS, "p1_05_curves_loss.png"), dpi=110)
+plt.savefig(os.path.join(FIGURES, "p1_05_curves_loss.png"), dpi=110)
 plt.close()
 
 plt.figure(figsize=(8, 5))
@@ -216,10 +216,10 @@ plt.ylabel("R2 / Accuracy")
 plt.title("Accuracy / Epochs - modele final (R2 et tolerance 2%)")
 plt.legend(fontsize=9)
 plt.tight_layout()
-plt.savefig(os.path.join(RESULTS, "p1_06_curves_accuracy.png"), dpi=110)
+plt.savefig(os.path.join(FIGURES, "p1_06_curves_accuracy.png"), dpi=110)
 plt.close()
 
-with open(os.path.join(RESULTS, "history_final.json"), "w") as f:
+with open(os.path.join(METRICS, "history_final.json"), "w") as f:
     json.dump(history, f)
 
 # nuage de points predictions / vraies valeurs + residus
@@ -239,7 +239,7 @@ plt.xlabel("Erreur de prediction ($)")
 plt.ylabel("Nb d'echantillons")
 plt.title("Distribution des residus (test)")
 plt.tight_layout()
-plt.savefig(os.path.join(RESULTS, "p1_07_predictions.png"), dpi=110)
+plt.savefig(os.path.join(FIGURES, "p1_07_predictions.png"), dpi=110)
 plt.close()
 
 # ---------------------------------------------------------------------------
@@ -275,11 +275,11 @@ for name, config in variants:
     results[name] = {"config": config, "train": train_metrics, "test": test_metrics}
     print("  %-28s -> Test RMSE=%.4f | Test R2=%.5f" % (name, test_metrics["RMSE"], test_metrics["R2"]))
     if name == "Baseline":
-        torch.save(variant_model.state_dict(), os.path.join(RESULTS, "model_baseline.pt"))
+        torch.save(variant_model.state_dict(), os.path.join(MODELS, "model_baseline.pt"))
 
 comparison = pd.DataFrame(rows)
-comparison.to_csv(os.path.join(RESULTS, "regularization_comparison.csv"), index=False)
-with open(os.path.join(RESULTS, "regularization_results.json"), "w") as f:
+comparison.to_csv(os.path.join(METRICS, "regularization_comparison.csv"), index=False)
+with open(os.path.join(METRICS, "regularization_results.json"), "w") as f:
     json.dump(results, f, indent=2)
 
 short_names = [r["Variante"].replace("+ ", "").replace(" (p=5)", "") for r in rows]
@@ -293,14 +293,14 @@ ax[2].set_title("Ecart de generalisation (R2 train - R2 test)")
 for a in ax:
     a.tick_params(axis="x", rotation=30)
 plt.tight_layout()
-plt.savefig(os.path.join(RESULTS, "p1_08_regularization.png"), dpi=110)
+plt.savefig(os.path.join(FIGURES, "p1_08_regularization.png"), dpi=110)
 plt.close()
 
 # ---------------------------------------------------------------------------
 # 5. Sauvegarde du modele et des infos
 # ---------------------------------------------------------------------------
-torch.save(model.state_dict(), os.path.join(RESULTS, "model_final.pt"))
-with open(os.path.join(RESULTS, "run_info.json"), "w") as f:
+torch.save(model.state_dict(), os.path.join(MODELS, "model_final.pt"))
+with open(os.path.join(METRICS, "run_info.json"), "w") as f:
     json.dump({"best_params": best_params, "final_config": best,
                "epochs_effectives_final": final_epochs,
                "n_train": D["n_train"], "n_test": D["n_test"],

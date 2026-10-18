@@ -16,7 +16,7 @@ from sklearn.metrics import (accuracy_score, classification_report, confusion_ma
                              f1_score, precision_score, recall_score)
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 
-from data import download_data, load_and_clean, prepare_data, run_eda, RESULTS
+from data import download_data, load_and_clean, prepare_data, run_eda, RESULTS, FIGURES, METRICS, MODELS
 from model import TorchMLPClassifier, build_mlp, make_optimizer
 
 SEED = 42
@@ -161,8 +161,8 @@ cv_results = pd.DataFrame(grid.cv_results_)[
     ["param_hidden", "param_lr", "param_optimizer",
      "mean_test_score", "std_test_score", "rank_test_score", "mean_fit_time"]]
 cv_results = cv_results.sort_values("rank_test_score")
-cv_results.to_csv(os.path.join(RESULTS, "grid_results.csv"), index=False)
-with open(os.path.join(RESULTS, "best_params.json"), "w") as f:
+cv_results.to_csv(os.path.join(METRICS, "grid_results.csv"), index=False)
+with open(os.path.join(METRICS, "best_params.json"), "w") as f:
     json.dump(best_params, f, indent=2)
 
 # ---------------------------------------------------------------------------
@@ -183,7 +183,7 @@ plt.ylabel("Cross-Entropy Loss")
 plt.title("Loss / Epochs - classification des pannes")
 plt.legend()
 plt.tight_layout()
-plt.savefig(os.path.join(RESULTS, "p2_05_curves_loss.png"), dpi=110)
+plt.savefig(os.path.join(FIGURES, "p2_05_curves_loss.png"), dpi=110)
 plt.close()
 
 plt.figure(figsize=(8, 5))
@@ -194,7 +194,7 @@ plt.ylabel("Accuracy")
 plt.title("Accuracy / Epochs - classification des pannes")
 plt.legend()
 plt.tight_layout()
-plt.savefig(os.path.join(RESULTS, "p2_06_curves_accuracy.png"), dpi=110)
+plt.savefig(os.path.join(FIGURES, "p2_06_curves_accuracy.png"), dpi=110)
 plt.close()
 
 # ---------------------------------------------------------------------------
@@ -202,7 +202,7 @@ plt.close()
 # ---------------------------------------------------------------------------
 train_metrics, train_predictions = evaluate(model, D["X_train_bal"], D["y_train_bal"])
 test_metrics, test_predictions = evaluate(model, D["X_test"], D["y_test"])
-with open(os.path.join(RESULTS, "final_metrics.json"), "w") as f:
+with open(os.path.join(METRICS, "final_metrics.json"), "w") as f:
     json.dump({"train_balanced": train_metrics, "test_original": test_metrics}, f, indent=2)
 print("Metriques train (equilibre):", train_metrics)
 print("Metriques test (original)  :", test_metrics)
@@ -211,7 +211,7 @@ report_train = classification_report(D["y_train_bal"], train_predictions,
                                      target_names=D["classes"], digits=3, zero_division=0)
 report_test = classification_report(D["y_test"], test_predictions,
                                     target_names=D["classes"], digits=3, zero_division=0)
-with open(os.path.join(RESULTS, "classification_reports.txt"), "w") as f:
+with open(os.path.join(METRICS, "classification_reports.txt"), "w") as f:
     f.write("=== TRAIN (equilibre) ===\n" + report_train
             + "\n\n=== TEST (distribution originale) ===\n" + report_test)
 
@@ -230,7 +230,7 @@ plt.title("Matrice de confusion - Test (normalisee)")
 plt.ylabel("Reel")
 plt.xlabel("Predit")
 plt.tight_layout()
-plt.savefig(os.path.join(RESULTS, "p2_07_confusion_matrix.png"), dpi=110)
+plt.savefig(os.path.join(FIGURES, "p2_07_confusion_matrix.png"), dpi=110)
 plt.close()
 
 f1_per_class = f1_score(D["y_test"], test_predictions, average=None,
@@ -241,7 +241,7 @@ plt.ylabel("F1-score")
 plt.title("F1-score par classe (test)")
 plt.xticks(rotation=25, ha="right")
 plt.tight_layout()
-plt.savefig(os.path.join(RESULTS, "p2_08_f1_per_class.png"), dpi=110)
+plt.savefig(os.path.join(FIGURES, "p2_08_f1_per_class.png"), dpi=110)
 plt.close()
 
 # ---------------------------------------------------------------------------
@@ -276,7 +276,7 @@ for name, config, extra in variants:
     print("  %-28s -> Test Acc=%.4f | Test F1-macro=%.4f"
           % (name, variant_test_metrics["accuracy"], variant_test_metrics["f1_macro"]))
     if name == "Baseline (SMOTE)":
-        torch.save(variant_model.state_dict(), os.path.join(RESULTS, "model_baseline.pt"))
+        torch.save(variant_model.state_dict(), os.path.join(MODELS, "model_baseline.pt"))
 
 # modele entraine sans augmentation, pour montrer l'apport de SMOTE
 print("  Comparaison: sans augmentation ...")
@@ -298,8 +298,8 @@ print("  %-28s -> Test Acc=%.4f | Test F1-macro=%.4f"
       % ("Sans augmentation", noaug_test_metrics["accuracy"], noaug_test_metrics["f1_macro"]))
 
 comparison = pd.DataFrame(rows)
-comparison.to_csv(os.path.join(RESULTS, "regularization_comparison.csv"), index=False)
-with open(os.path.join(RESULTS, "regularization_results.json"), "w") as f:
+comparison.to_csv(os.path.join(METRICS, "regularization_comparison.csv"), index=False)
+with open(os.path.join(METRICS, "regularization_results.json"), "w") as f:
     json.dump(results, f, indent=2)
 
 short_names = [r["Variante"].replace("+ ", "") for r in rows]
@@ -314,14 +314,14 @@ ax[2].set_title("Ecart F1 train - F1 test")
 for a in ax:
     a.tick_params(axis="x", rotation=35)
 plt.tight_layout()
-plt.savefig(os.path.join(RESULTS, "p2_09_regularization.png"), dpi=110)
+plt.savefig(os.path.join(FIGURES, "p2_09_regularization.png"), dpi=110)
 plt.close()
 
 # ---------------------------------------------------------------------------
 # 6. Sauvegarde du modele et des infos
 # ---------------------------------------------------------------------------
-torch.save(model.state_dict(), os.path.join(RESULTS, "model_final.pt"))
-with open(os.path.join(RESULTS, "run_info.json"), "w") as f:
+torch.save(model.state_dict(), os.path.join(MODELS, "model_final.pt"))
+with open(os.path.join(METRICS, "run_info.json"), "w") as f:
     json.dump({"best_params": best_params, "classes": D["classes"],
                "feature_names": D["feature_names"],
                "counts_before_smote": {D["classes"][i]: int(D["counts_before"].get(i, 0))
@@ -331,7 +331,7 @@ with open(os.path.join(RESULTS, "run_info.json"), "w") as f:
                "n_train_original": D["n_train"], "n_test": D["n_test"],
                "n_train_balanced": D["n_train_bal"]}, f, indent=2)
 
-with open(os.path.join(RESULTS, "preprocessing_report.txt"), "w") as f:
+with open(os.path.join(METRICS, "preprocessing_report.txt"), "w") as f:
     f.write("\n".join(preprocessing_report))
 
 print("Termine. Resultats dans", RESULTS)

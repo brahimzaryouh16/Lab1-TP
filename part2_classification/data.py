@@ -15,7 +15,12 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(HERE, "data")
 RESULTS = os.path.join(HERE, "results")
-os.makedirs(RESULTS, exist_ok=True)
+FIGURES = os.path.join(RESULTS, "figures")   # courbes et figures
+METRICS = os.path.join(RESULTS, "metrics")   # json, csv et rapports texte
+MODELS = os.path.join(RESULTS, "models")     # poids des modeles (.pt)
+os.makedirs(FIGURES, exist_ok=True)
+os.makedirs(METRICS, exist_ok=True)
+os.makedirs(MODELS, exist_ok=True)
 
 CSV_URL = ("https://raw.githubusercontent.com/Pharezzzz/"
            "Predictive-Maintenance-Pipeline-with-Machine-Learning/main/predictive_maintenance.csv")
@@ -116,7 +121,7 @@ def run_eda(df, y_all, classes, counts_before, counts_after):
     plt.title("Equilibrage du train (SMOTE)")
     plt.legend()
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS, "p2_01_class_balance.png"), dpi=110)
+    plt.savefig(os.path.join(FIGURES, "p2_01_class_balance.png"), dpi=110)
     plt.close()
 
     # figure 2 : distribution des variables capteurs par classe
@@ -132,7 +137,7 @@ def run_eda(df, y_all, classes, counts_before, counts_after):
     plt.legend(fontsize=7)
     plt.suptitle("Distribution des variables capteurs par type de panne")
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS, "p2_02_features_by_class.png"), dpi=110)
+    plt.savefig(os.path.join(FIGURES, "p2_02_features_by_class.png"), dpi=110)
     plt.close()
 
     # figure 3 : correlations (variables numeriques + id de classe)
@@ -143,7 +148,7 @@ def run_eda(df, y_all, classes, counts_before, counts_after):
                 annot_kws={"size": 7})
     plt.title("Correlations (features numeriques + id de classe)")
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS, "p2_03_correlation.png"), dpi=110)
+    plt.savefig(os.path.join(FIGURES, "p2_03_correlation.png"), dpi=110)
     plt.close()
 
     # figure 4 : vitesse x couple colore par type de panne
@@ -157,5 +162,5 @@ def run_eda(df, y_all, classes, counts_before, counts_after):
     plt.title("Vitesse x Couple colore par type de panne (loi puissance)")
     plt.legend(fontsize=8, markerscale=2)
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULTS, "p2_04_scatter_rpm_torque.png"), dpi=110)
+    plt.savefig(os.path.join(FIGURES, "p2_04_scatter_rpm_torque.png"), dpi=110)
     plt.close()
