@@ -1,6 +1,6 @@
 # Deep Learning Lab - PyTorch
 
-This is my lab work for the Deep Learning course (Master MBD, FST Tanger -
+This is my lab work for the Deep Learning course (LSI, FST Tanger -
 Universite Abdelmalek Essaadi, Pr. ELAACHAK Lotfi).
 
 I used PyTorch to do two tasks:
